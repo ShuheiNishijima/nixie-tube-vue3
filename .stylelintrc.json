@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-recommended-vue",
+    "stylelint-config-prettier-scss"
+  ],
+  "rules": {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+    "scss/dollar-variable-pattern": "^(?![A-Z_])[a-zA-Z0-9]+(?:[A-Z][a-z0-9]*)*$"
+  }
+}
