@@ -7,6 +7,7 @@
   "rules": {
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": true,
-    "scss/dollar-variable-pattern": "^(?![A-Z_])[a-zA-Z0-9]+(?:[A-Z][a-z0-9]*)*$"
+    "scss/dollar-variable-pattern": "^(?![A-Z_])[a-zA-Z0-9]+(?:[A-Z][a-z0-9]*)*$",
+    "selector-class-pattern": null
   }
 }

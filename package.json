@@ -12,7 +12,9 @@
     "lint:style": "stylelint src/**/*.{css,scss,vue} --ignore-path .gitignore"
   },
   "dependencies": {
-    "vue": "^3.4.31"
+    "ress": "^5.0.2",
+    "vue": "^3.4.31",
+    "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.11",
