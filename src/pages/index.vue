@@ -45,11 +45,17 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .container {
   display: flex;
-  gap: 16px;
   width: 100%;
   height: 100vh;
-  padding: 24px;
   background: #000;
+  @include tab-pc {
+    gap: 16px;
+    padding: 24px;
+  }
+  @include sp {
+    gap: 8px;
+    padding: 8px;
+  }
 }
 
 // .container__item {

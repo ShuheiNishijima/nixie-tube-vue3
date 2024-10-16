@@ -14,6 +14,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `
+          @import "@/assets/styles/foundation/mixins/mediaqueries";
           @import "@/assets/styles/foundation/mixins/font-family";
           @import "@/assets/styles/foundation/variables/colors";
           @import "@/assets/styles/foundation/variables/fonts";

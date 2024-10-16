@@ -1,0 +1,26 @@
+$breakpointMedium: 768px;
+$breakpointLarge: 1280px;
+
+@mixin sp {
+  @media (width < $breakpointMedium) {
+    @content;
+  }
+}
+
+@mixin tab {
+  @media ($breakpointMedium <= width < $breakpointLarge) {
+    @content;
+  }
+}
+
+@mixin pc {
+  @media ($breakpointLarge <= width) {
+    @content;
+  }
+}
+
+@mixin tab-pc {
+  @media ($breakpointMedium <= width) {
+    @content;
+  }
+}
