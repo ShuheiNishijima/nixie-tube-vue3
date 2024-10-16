@@ -1,19 +1,42 @@
 <script setup lang="ts">
+import { defineProps, withDefaults, ref } from 'vue'
+
 type Props = {
   items: string[]
   active?: number | undefined
+  blink?: boolean
 }
 
-defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  active: undefined,
+  blink: false,
+})
+
+const isActive = ref<Boolean>(false)
+
+const init = () => {
+  isActive.value = props.active !== undefined
+}
+
+const blinking = () => {
+  if (props.blink) {
+    setInterval(() => {
+      isActive.value = !isActive.value
+    }, 900)
+  }
+}
+
+init()
+blinking()
 </script>
 
 <template>
-  <div :class="['nixie-tube', { 'is-active': active !== undefined }]">
+  <div :class="['nixie-tube', { 'is-active': isActive }]">
     <ul class="nixie-tube__list">
       <li
-        v-for="(item, index) in items"
+        v-for="(item, index) in props.items"
         :key="index"
-        :class="['nixie-tube__item', { 'is-active': index === active }]"
+        :class="['nixie-tube__item', { 'is-active': isActive && index === props.active }]"
       >
         {{ item }}
       </li>
@@ -34,6 +57,10 @@ defineProps<Props>()
     rgba(#fff, 0.3) 0 0 8px inset,
     rgba(#fff, 0.4) 0 0 16px inset,
     rgba(#fff, 0.5) 0 0 24px inset;
+  transition:
+    border-bottom 0.3s linear,
+    border-left 0.3s linear,
+    box-shadow 0.3s linear;
 
   &::before {
     content: '';
@@ -46,6 +73,7 @@ defineProps<Props>()
     box-shadow: -8px 0 6px rgba(#fff, 0.9);
     border-radius: 50%;
     transform: rotate(135deg);
+    transition: box-shadow 0.3s linear;
   }
 
   &.is-active {
@@ -82,6 +110,9 @@ defineProps<Props>()
   font-style: normal;
   text-shadow: #000 0 0 8px;
   transform: translate(-50%, -50%) scale(70%, 100%);
+  transition:
+    color 0.3s ease-in-out,
+    text-shadow 0.3s ease-in-out;
 
   &.is-active {
     z-index: 2;

@@ -4,13 +4,12 @@ import { useGetTime } from '@/composables/useGetTime.ts'
 import NixieTube from '@/components/NixieTube.vue'
 
 const items = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-const { hours, minutes, seconds, continuos } = useGetTime()
+const colon = ['：']
+const { setCurrentTime, hours, minutes, seconds, counter } = useGetTime()
 
-onMounted(() => {
-  continuos()
-  console.table(hours.value)
-  console.table(minutes.value)
-  console.table(seconds.value)
+onMounted(async () => {
+  await setCurrentTime()
+  counter()
 })
 </script>
 
@@ -23,7 +22,7 @@ onMounted(() => {
       <NixieTube :items="items" :active="hours[1]" />
     </li>
     <li class="container__item">
-      <NixieTube :items="items" :active="undefined" />
+      <NixieTube :items="colon" :active="0" blink />
     </li>
     <li class="container__item">
       <NixieTube :items="items" :active="minutes[0]" />
@@ -32,7 +31,7 @@ onMounted(() => {
       <NixieTube :items="items" :active="minutes[1]" />
     </li>
     <li class="container__item">
-      <NixieTube :items="items" :active="undefined" />
+      <NixieTube :items="colon" :active="0" blink />
     </li>
     <li class="container__item">
       <NixieTube :items="items" :active="seconds[0]" />

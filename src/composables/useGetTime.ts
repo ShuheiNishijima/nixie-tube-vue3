@@ -5,34 +5,53 @@ export const useGetTime = () => {
     return number < 10 ? `0${number}` : `${number}`
   }
 
-  const date = ref<Date>(new Date())
+  const getCurrentTime = async () => {
+    const requestUrl = '/img/1x1.gif' as const
+    const defaultTime = '1970/01/01 00:00:00'
+    try {
+      const response = await fetch(requestUrl)
+      const serverTime = response.headers.get('Date') ?? new Date(defaultTime)
+      return new Date(serverTime)
+    } catch {
+      return new Date(defaultTime)
+    }
+  }
+
+  const setCurrentTime = async () => {
+    const time = await getCurrentTime()
+    currentTime.value = time
+  }
+
+  const currentTime = ref(new Date('1970/01/01 00:00:00'))
 
   const hours = computed(() => {
-    const h = formatter(date.value.getHours()).split('')
+    const h = formatter(currentTime.value.getHours()).split('')
     return h.map((item) => parseInt(item))
   })
 
   const minutes = computed(() => {
-    const m = formatter(date.value.getMinutes()).split('')
+    const m = formatter(currentTime.value.getMinutes()).split('')
     return m.map((item) => parseInt(item))
   })
 
   const seconds = computed(() => {
-    const s = formatter(date.value.getSeconds()).split('')
+    const s = formatter(currentTime.value.getSeconds()).split('')
     return s.map((item) => parseInt(item))
   })
 
-  const continuos = () => {
+  const counter = () => {
     setInterval(() => {
-      date.value = new Date()
+      currentTime.value = new Date(currentTime.value.getTime() + 1000)
     }, 1000)
   }
 
   return {
-    date,
+    getCurrentTime,
+    setCurrentTime,
+    currentTime,
     hours,
     minutes,
     seconds,
-    continuos,
+    counter,
   }
 }
