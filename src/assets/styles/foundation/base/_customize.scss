@@ -8,7 +8,7 @@
 }
 
 html {
-  @include font-family;
+  @include font-default;
   font-size: $fontSizeDefault;
 }
 

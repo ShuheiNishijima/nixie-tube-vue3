@@ -1,3 +1,15 @@
-@mixin font-family {
+@font-face {
+  font-family: 'M PLUS Rounded 1c';
+  src: url('@/assets/fonts/MPLUSRounded1c-Thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@mixin font-default {
   font-family: '游ゴシック体', YuGothic, '游ゴシック', 'Yu Gothic', 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
+}
+
+@mixin font-nixie {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
 }

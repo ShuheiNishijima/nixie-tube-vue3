@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, withDefaults, ref } from 'vue'
+import { defineProps, withDefaults, ref, computed, onMounted } from 'vue'
 
 type Props = {
   items: string[]
@@ -12,22 +12,28 @@ const props = withDefaults(defineProps<Props>(), {
   blink: false,
 })
 
-const isActive = ref<Boolean>(false)
+const activeRef = ref<boolean>(props.active !== undefined)
 
-const init = () => {
-  isActive.value = props.active !== undefined
-}
+const isActive = computed({
+  get() {
+    return activeRef.value
+  },
+  set(value) {
+    activeRef.value = value
+  },
+})
 
 const blinking = () => {
   if (props.blink) {
     setInterval(() => {
       isActive.value = !isActive.value
-    }, 900)
+    }, 800)
   }
 }
 
-init()
-blinking()
+onMounted(() => {
+  blinking()
+})
 </script>
 
 <template>
@@ -45,7 +51,6 @@ blinking()
 </template>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100&family=Quicksand:wght@300&family=Urbanist:ital,wght@0,100..900;1,100..900&family=Zen+Maru+Gothic&display=swap');
 .nixie-tube {
   position: relative;
   border-bottom: 1px solid #fff;
@@ -132,6 +137,7 @@ blinking()
 }
 
 .nixie-tube__item {
+  @include font-nixie;
   z-index: 1;
   position: absolute;
   line-height: 1;
@@ -139,15 +145,14 @@ blinking()
   left: 50%;
   color: #666;
   list-style: none;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
   font-optical-sizing: auto;
   font-weight: 100;
   font-style: normal;
   text-shadow: #000 0 0 8px;
   transform: translate(-50%, -50%) scale(70%, 100%);
   transition:
-    color 0.3s ease-in-out,
-    text-shadow 0.3s ease-in-out;
+    color 0.3s linear,
+    text-shadow 0.3s linear;
   @include tab-pc {
     font-size: 18rem;
   }
